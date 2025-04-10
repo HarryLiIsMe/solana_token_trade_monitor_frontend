@@ -175,10 +175,10 @@ function ListFollowedUsers() {
                 total profit
               </th>
               <th className="font-size-lg font-weight-bold text-uppercase">
-                timestamp
+                last trade datetime
               </th>
               <th className="font-size-lg font-weight-bold text-uppercase">
-                block number
+                last block number
               </th>
               <th className="font-size-lg font-weight-bold text-uppercase">
                 is disabled
@@ -261,7 +261,24 @@ function ListFollowedUsers() {
                     color: "#495057",
                   }}
                 >
-                  {followedUser.tms}
+                  {(() => {
+                    const curr_tms = Math.floor(new Date().getTime() / 1000);
+                    const diff_tms = curr_tms - followedUser.tms;
+                    if (diff_tms <= 0) {
+                      return "before 0 seconds";
+                    }
+                    if (diff_tms < 60) {
+                      return `before ${diff_tms} seconds`;
+                    }
+                    if (diff_tms > 60 && diff_tms < 3600) {
+                      return `before ${Math.floor(diff_tms / 60)} minutes`;
+                    }
+                    if (diff_tms > 3600 && 86400) {
+                      return `before ${Math.floor(diff_tms / 3600)} hours`;
+                    }
+
+                    return `before ${Math.floor(diff_tms / 86400)} days`;
+                  })()}
                 </td>
                 <td
                   style={{
