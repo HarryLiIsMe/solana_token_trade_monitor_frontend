@@ -11,6 +11,11 @@ type FollowedUsr = {
   tms: number;
   block_number: number;
   is_disabled: boolean;
+  total_buy_amount: number;
+  total_sell_amount: number;
+  buy_num: number;
+  sell_num: number;
+  total_profit: number;
 };
 
 function ListFollowedUsers() {
@@ -89,6 +94,11 @@ function ListFollowedUsers() {
           tms: 1,
           block_number: 1,
           is_disabled: false,
+          total_buy_amount: 0,
+          total_sell_amount: 0,
+          buy_num: 0,
+          sell_num: 0,
+          total_profit: 0,
         });
       }
       setFollowedUsers([...newFollowedUsers]);
@@ -132,35 +142,145 @@ function ListFollowedUsers() {
             <Form.Control
               type="text"
               placeholder="User Address"
-              className="me-2 w-75"
+              className="me-2 w-75 m-3"
               ref={inputRef}
             />
             <Form.Text className="text-muted"></Form.Text>
-            <Button variant="primary" type="submit" className="w-25">
+            <Button variant="primary" type="submit" className="w-25 m-3">
               Add Followed User
             </Button>
           </Form.Group>
         </Form>
       </div>
       <div className="mt-4">
-        <Table>
-          <thead>
+        <Table striped bordered hover responsive className="table-light">
+          <thead className="bg-primary text-white">
             <tr>
-              <th>account address</th>
-              <th>last tx hash</th>
-              <th>timestamp</th>
-              <th>block number</th>
-              <th>is disabled</th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                account address
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                total buy amount
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                total sell amount
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                buy number
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                sell number
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                total profit
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                timestamp
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                block number
+              </th>
+              <th className="font-size-lg font-weight-bold text-uppercase">
+                is disabled
+              </th>
             </tr>
           </thead>
           <tbody>
             {followedUsers.map((followedUser) => (
-              <tr key={followedUser.account_addr}>
-                <td>{followedUser.account_addr}</td>
-                <td>{followedUser.last_tx_hash}</td>
-                <td>{followedUser.tms}</td>
-                <td>{followedUser.block_number}</td>
-                <td>
+              <tr
+                key={followedUser.account_addr}
+                className={
+                  followedUser.is_disabled ? "table-danger" : "table-success"
+                }
+              >
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.account_addr}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.total_buy_amount}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.total_sell_amount}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.buy_num}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.sell_num}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.total_profit}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.tms}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
+                  {followedUser.block_number}
+                </td>
+                <td
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    color: "#495057",
+                  }}
+                >
                   <Button
                     variant={followedUser.is_disabled ? "primary" : "danger"}
                     onClick={() =>
