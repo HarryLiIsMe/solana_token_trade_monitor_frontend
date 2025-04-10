@@ -47,15 +47,17 @@ function ListFollowedUsers() {
       let is_changed = false;
       let is_existed = false;
       const newFollowedUsers = followedUsers.map((followedUser) => {
-        const newFollowedUser = cloneDeep(followedUser);
         if (followedUser.account_addr === addr) {
           is_existed = true;
-          if (newFollowedUser.is_disabled !== is_disabled) {
+          if (followedUser.is_disabled !== is_disabled) {
             is_changed = true;
+            const newFollowedUser = cloneDeep(followedUser);
             newFollowedUser.is_disabled = is_disabled;
+            return newFollowedUser;
           }
         }
-        return newFollowedUser;
+
+        return followedUser;
       });
 
       if (is_changed) {
