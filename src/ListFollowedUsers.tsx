@@ -101,7 +101,7 @@ function ListFollowedUsers() {
       const addr = inputRef.current?.value;
       if (addr) {
         if (await setFollowedUserIsDisable(addr, false)) {
-          window.location.reload();
+          // window.location.reload();
         }
       }
     } catch (error) {
@@ -152,35 +152,27 @@ function ListFollowedUsers() {
             </tr>
           </thead>
           <tbody>
-            {(() => {
-              const temp = [];
-              for (const followedUser of followedUsers) {
-                temp.push(
-                  <tr>
-                    <td>{followedUser.account_addr}</td>
-                    <td>{followedUser.last_tx_hash}</td>
-                    <td>{followedUser.tms}</td>
-                    <td>{followedUser.block_number}</td>
-                    <td>
-                      <Button
-                        variant={
-                          followedUser.is_disabled ? "primary" : "danger"
-                        }
-                        onClick={() =>
-                          setFollowedUserIsDisable(
-                            followedUser.account_addr,
-                            !followedUser.is_disabled,
-                          )
-                        }
-                      >
-                        {followedUser.is_disabled ? "enbale" : "disable"}
-                      </Button>
-                    </td>
-                  </tr>,
-                );
-              }
-              return temp;
-            })()}
+            {followedUsers.map((followedUser) => (
+              <tr key={followedUser.account_addr}>
+                <td>{followedUser.account_addr}</td>
+                <td>{followedUser.last_tx_hash}</td>
+                <td>{followedUser.tms}</td>
+                <td>{followedUser.block_number}</td>
+                <td>
+                  <Button
+                    variant={followedUser.is_disabled ? "primary" : "danger"}
+                    onClick={() =>
+                      setFollowedUserIsDisable(
+                        followedUser.account_addr,
+                        !followedUser.is_disabled,
+                      )
+                    }
+                  >
+                    {followedUser.is_disabled ? "Enable" : "Disable"}
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
