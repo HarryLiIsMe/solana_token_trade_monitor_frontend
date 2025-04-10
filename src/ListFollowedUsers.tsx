@@ -177,9 +177,9 @@ function ListFollowedUsers() {
               <th className="font-size-lg font-weight-bold text-uppercase">
                 last trade datetime
               </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
+              {/* <th className="font-size-lg font-weight-bold text-uppercase">
                 last block number
-              </th>
+              </th> */}
               <th className="font-size-lg font-weight-bold text-uppercase">
                 is disabled
               </th>
@@ -280,7 +280,7 @@ function ListFollowedUsers() {
                     return `before ${Math.floor(diff_tms / 86400)} days`;
                   })()}
                 </td>
-                <td
+                {/* <td
                   style={{
                     fontFamily: "Roboto, sans-serif",
                     fontSize: "18px",
@@ -289,7 +289,7 @@ function ListFollowedUsers() {
                   }}
                 >
                   {followedUser.block_number}
-                </td>
+                </td> */}
                 <td
                   style={{
                     fontFamily: "Roboto, sans-serif",
