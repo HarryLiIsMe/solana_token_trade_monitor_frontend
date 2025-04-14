@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-// import "./ListFollowedUsers.css";
+import "./ListFollowedUsers.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import { Form, Button, Table } from "react-bootstrap";
@@ -15,7 +15,8 @@ type FollowedUsr = {
   total_sell_amount: number;
   buy_num: number;
   sell_num: number;
-  total_profit: number;
+  real_profit: number;
+  floating_profit: number;
 };
 
 function ListFollowedUsers() {
@@ -98,7 +99,8 @@ function ListFollowedUsers() {
           total_sell_amount: 0,
           buy_num: 0,
           sell_num: 0,
-          total_profit: 0,
+          real_profit: 0,
+          floating_profit: 0,
         });
       }
       setFollowedUsers([...newFollowedUsers]);
@@ -153,36 +155,35 @@ function ListFollowedUsers() {
         </Form>
       </div>
       <div className="mt-4">
-        <Table striped bordered hover responsive className="table-light">
+        <Table
+          striped
+          bordered
+          hover
+          responsive
+          className="table-light my-custom-table"
+          style={{ tableLayout: "fixed" }}
+        >
           <thead className="bg-primary text-white">
             <tr>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                account address
+              <th className="font-size-lg font-weight-bold">Account Address</th>
+              <th className="font-size-lg font-weight-bold">
+                Total Buy Amount
               </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                total buy amount
+              <th className="font-size-lg font-weight-bold">
+                Total Sell Amount
               </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                total sell amount
+              <th className="font-size-lg font-weight-bold">Buy Number</th>
+              <th className="font-size-lg font-weight-bold">Sell Number</th>
+              <th className="font-size-lg font-weight-bold">Total Profit</th>
+              <th className="font-size-lg font-weight-bold">Real Profit</th>
+              <th className="font-size-lg font-weight-bold">Floating Profit</th>
+              <th className="font-size-lg font-weight-bold">
+                Last Trade Datetime
               </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                buy number
-              </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                sell number
-              </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                total profit
-              </th>
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                last trade datetime
-              </th>
-              {/* <th className="font-size-lg font-weight-bold text-uppercase">
+              {/* <th className="font-size-lg font-weight-bold ">
                 last block number
               </th> */}
-              <th className="font-size-lg font-weight-bold text-uppercase">
-                is disabled
-              </th>
+              <th className="font-size-lg font-weight-bold">Is Disabled</th>
             </tr>
           </thead>
           <tbody>
@@ -193,75 +194,22 @@ function ListFollowedUsers() {
                   followedUser.is_disabled ? "table-danger" : "table-success"
                 }
               >
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
-                  {followedUser.account_addr}
+                <td>{followedUser.account_addr}</td>
+                <td>{followedUser.total_buy_amount}</td>
+                <td>{followedUser.total_sell_amount}</td>
+                <td>{followedUser.buy_num}</td>
+                <td>{followedUser.sell_num}</td>
+                <td>
+                  {followedUser.real_profit + followedUser.floating_profit}
                 </td>
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
-                  {followedUser.total_buy_amount}
-                </td>
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
-                  {followedUser.total_sell_amount}
-                </td>
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
-                  {followedUser.buy_num}
-                </td>
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
-                  {followedUser.sell_num}
-                </td>
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
-                  {followedUser.total_profit}
-                </td>
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
+                <td>{followedUser.real_profit}</td>
+                <td>{followedUser.floating_profit}</td>
+                <td>
                   {(() => {
+                    if (followedUser.tms == 1) {
+                      return "not trade";
+                    }
+
                     const curr_tms = Math.floor(new Date().getTime() / 1000);
                     const diff_tms = curr_tms - followedUser.tms;
                     if (diff_tms <= 0) {
@@ -281,23 +229,11 @@ function ListFollowedUsers() {
                   })()}
                 </td>
                 {/* <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
+                  
                 >
                   {followedUser.block_number}
                 </td> */}
-                <td
-                  style={{
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    color: "#495057",
-                  }}
-                >
+                <td>
                   <Button
                     variant={followedUser.is_disabled ? "primary" : "danger"}
                     onClick={() =>
