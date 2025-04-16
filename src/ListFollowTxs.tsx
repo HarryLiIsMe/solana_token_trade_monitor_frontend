@@ -34,7 +34,14 @@ function ListFollowTxs() {
         method: "GET",
       },
     );
-    const result: { follow_txs: FollowTx[] } = await response.json();
+    if (!response.ok) {
+      const error = await response.json();
+      console.error("request failed:", error.error);
+      alert("request failed:" + error.error);
+      return;
+    }
+    const result: { success: boolean; follow_txs: FollowTx[] } =
+      await response.json();
     console.log("Fetched followed users:", result.follow_txs);
     setFollowTxs(result.follow_txs);
   };

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import { Form, Button, Table } from "react-bootstrap";
 import { cloneDeep } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 type FollowedUsr = {
   account_addr: string;
@@ -20,6 +21,7 @@ type FollowedUsr = {
 };
 
 function ListFollowedUsers() {
+  const navigate = useNavigate();
   const [followedUsers, setFollowedUsers] = useState<FollowedUsr[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -196,7 +198,18 @@ function ListFollowedUsers() {
                   followedUser.is_disabled ? "table-danger" : "table-success"
                 }
               >
-                <td>{followedUser.account_addr}</td>
+                <td
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    color: "#0d6efd",
+                  }}
+                  onClick={() =>
+                    navigate(`/list_follow_txs/${followedUser.account_addr}`)
+                  }
+                >
+                  {followedUser.account_addr}
+                </td>
                 <td>{followedUser.total_buy_amount}</td>
                 <td>{followedUser.total_sell_amount}</td>
                 <td>{followedUser.buy_num}</td>
