@@ -1,0 +1,12 @@
+.my-custom-table td,
+.my-custom-table th {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.my-custom-table td {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 350;
+  color: #495057;
+}

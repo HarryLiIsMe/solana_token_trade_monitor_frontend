@@ -24,6 +24,8 @@ function ListFollowedUsers() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const getFollowedUsers = async () => {
+    console.log("getFollowedUsers");
+
     const response = await fetch("http://localhost:8888/list_followed_users", {
       // headers: {
       //   "Accept": "application/json",
