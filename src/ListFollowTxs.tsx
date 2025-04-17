@@ -73,7 +73,7 @@ function ListFollowTxs() {
                 Total Amount Token
               </th>
               <th className="font-size-lg font-weight-bold">Price Usdt</th>
-              <th className="font-size-lg font-weight-bold">Profit</th>
+              <th className="font-size-lg font-weight-bold">Profit Usdt</th>
               <th className="font-size-lg font-weight-bold">Trade Datetime</th>
             </tr>
           </thead>

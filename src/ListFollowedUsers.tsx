@@ -171,16 +171,16 @@ function ListFollowedUsers() {
             <tr>
               <th className="font-size-lg font-weight-bold">Account Address</th>
               <th className="font-size-lg font-weight-bold">
-                Total Buy Amount
+                Total Buy Amount Usdt
               </th>
               <th className="font-size-lg font-weight-bold">
-                Total Sell Amount
+                Total Sell Amount Usdt
               </th>
               <th className="font-size-lg font-weight-bold">Buy Number</th>
               <th className="font-size-lg font-weight-bold">Sell Number</th>
-              <th className="font-size-lg font-weight-bold">Total Profit</th>
-              <th className="font-size-lg font-weight-bold">Real Profit</th>
-              <th className="font-size-lg font-weight-bold">Floating Profit</th>
+              <th className="font-size-lg font-weight-bold">Total Profit Usdt</th>
+              <th className="font-size-lg font-weight-bold">Real Profit Usdt</th>
+              <th className="font-size-lg font-weight-bold">Floating Profit Usdt</th>
               <th className="font-size-lg font-weight-bold">
                 Last Trade Datetime
               </th>
